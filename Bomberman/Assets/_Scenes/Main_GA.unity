@@ -418,8 +418,8 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: -8610698319029346496, guid: 31b8d0554c8321647ba0a67b4a4b749b, type: 3}
+    m_HighlightedSprite: {fileID: 21300000, guid: 4407d7c8d1c162c47bfbe9b175720a7f, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: 701a9ed4971b0ec47b7d2d455f78ba89, type: 3}
     m_SelectedSprite: {fileID: 0}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
@@ -432,7 +432,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1255496044}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1583315571}
+        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+        m_MethodName: Quit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1255496044
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -453,8 +465,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: a9710367de29a714c96f346517846adf, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -660,13 +672,14 @@ GameObject:
   - component: {fileID: 1583315568}
   - component: {fileID: 1583315570}
   - component: {fileID: 1583315569}
+  - component: {fileID: 1583315571}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: PausePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1583315568
 RectTransform:
   m_ObjectHideFlags: 0
@@ -727,6 +740,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1583315567}
   m_CullTransparentMesh: 0
+--- !u!114 &1583315571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1583315567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4aa7d4c1ad3cbe94796544fa56a7e722, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _PausePanel: {fileID: 1583315567}
 --- !u!1 &2086461154
 GameObject:
   m_ObjectHideFlags: 0
@@ -794,8 +820,8 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: -8610698319029346496, guid: 31b8d0554c8321647ba0a67b4a4b749b, type: 3}
+    m_HighlightedSprite: {fileID: 21300000, guid: 4407d7c8d1c162c47bfbe9b175720a7f, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: 701a9ed4971b0ec47b7d2d455f78ba89, type: 3}
     m_SelectedSprite: {fileID: 0}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
@@ -808,7 +834,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2086461157}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1583315571}
+        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+        m_MethodName: Resume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2086461157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -829,8 +867,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: a9710367de29a714c96f346517846adf, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
