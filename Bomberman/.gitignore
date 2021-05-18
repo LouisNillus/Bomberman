@@ -9,6 +9,11 @@
 /[Bb]uilds/
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
+/[Pp]ersonal/
+/[Rr]ecordings/
+
+Assets/Plugins/AmplifyShaderEditor/
+Assets/AmplifyShaderEditor/
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
