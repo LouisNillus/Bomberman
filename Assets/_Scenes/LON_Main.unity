@@ -228,6 +228,7 @@ MonoBehaviour:
     bomb: 32
     wall: 0
   bombPrefab: {fileID: 871845065480491905, guid: d1f08af2ee9a26742af53872b4548806, type: 3}
+  playerDirection: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -407,6 +408,7 @@ MonoBehaviour:
     bomb: 0
     wall: 0
   bombPrefab: {fileID: 871845065480491905, guid: d1f08af2ee9a26742af53872b4548806, type: 3}
+  playerDirection: 0
 --- !u!212 &1746547116
 SpriteRenderer:
   m_ObjectHideFlags: 0
