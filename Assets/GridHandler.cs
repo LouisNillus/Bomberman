@@ -18,7 +18,7 @@ public class GridHandler : MonoBehaviour
     public GameObject unbreakableWall;
     public int tileResolution;
 
-    public Dictionary<Player, int> players = new Dictionary<Player, int>();
+    public List<Player> players = new List<Player>();
 
     public Bounds bounds;
 
@@ -190,15 +190,15 @@ public class GridHandler : MonoBehaviour
     public void CheckPlayer()
     {
         foreach(Cell c in map)
-        foreach (Player p in players.Keys)
+        foreach (Player p in players)
         {
             if (p.transform.position == c.pos)
             {
-                c.entity = p.gameObject;
+                c.player = p;
             }
             else
             {
-                c.entity = null;
+                c.player = null;
             }
         }
     }
@@ -297,18 +297,24 @@ public class GridHandler : MonoBehaviour
 
             for (int j = 0; j < _rows.Length; j++)
             {
-                switch(_rows[j])
+                Cell c = map[((_lines.Length - 1 - i) * _rows.Length) + j];
+
+                switch (_rows[j])
                 {
                     case "0": break;
                     case "1":
-                        SetWall(map[((_lines.Length-1 - i) * _rows.Length) + j]);
+                        SetWall(c);
                         break;
                     case "2":
-                        SetUnbreakableWall(map[((_lines.Length - 1 - i) * _rows.Length) + j]);
+                        SetUnbreakableWall(c);
                         break;
                     //case "3":
-                    //case "X":
-                    //case "Y":
+                    case "X":
+                        players[0].transform.position = c.pos;
+                        break;
+                    case "Y":
+                        players[1].transform.position = c.pos;
+                        break;
                 }
             }
         }
@@ -321,6 +327,7 @@ public class Cell
     public Vector3 pos = Vector3.zero;
     public GameObject tile;
     public GameObject entity;
+    public Player player;
     public EntityType type;
     public bool occupied = false;
     public bool destroyable = true;

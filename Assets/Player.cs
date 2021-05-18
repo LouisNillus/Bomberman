@@ -20,15 +20,15 @@ public class Player : MonoBehaviour
 
     GridHandler gh;
 
-    // Start is called before the first frame update
+    // Start
     void Start()
     {
         gh = GridHandler.instance;
         id = int.Parse(Random.Range(0, 99).ToString() + Random.Range(0, 99).ToString());
-        gh.players.Add(this, id);
+        gh.players.Add(this);
     }
 
-    // Update is called once per frame
+    // Update
     void Update()
     {
         if(Input.GetKeyDown(keys.keyRight) &&  gh.PreventTeleport(gh.GetCellFromPos(transform.position), gh.NextCell(transform.position, Direction.Right)) == false)
