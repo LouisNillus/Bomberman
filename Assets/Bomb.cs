@@ -40,8 +40,7 @@ public class Bomb : MonoBehaviour
         {
             if (c.entity != null && c.destroyable)
             {
-                Destroy(c.entity);
-                c.FreeCell();
+                Destroy(c.entity);               
             }
 
             if (c.player != null) c.player.TakeDamages(1);

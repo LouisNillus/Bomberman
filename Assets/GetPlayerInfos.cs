@@ -9,13 +9,13 @@ public class GetPlayerInfos : MonoBehaviour
     TextMeshProUGUI value;
     public Player player;
 
-    // Start is called before the first frame update
+    // Start
     void Start()
     {
         value = GetComponent<TextMeshProUGUI>();
     }
 
-    // Update is called once per frame
+    // Update
     void Update()
     {
         value.text = "x" + player.wallsRemaining.ToString();

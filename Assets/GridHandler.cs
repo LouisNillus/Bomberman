@@ -321,6 +321,12 @@ public class GridHandler : MonoBehaviour
                     case "P":
                         SetPressurePlate(c);
                         break;
+                    case "R":
+                        //players[0].transform.position = c.pos;
+                        break;
+                    case "H":
+                        //players[0].transform.position = c.pos;
+                        break;
                     case "X":
                         players[0].transform.position = c.pos;
                         break;
