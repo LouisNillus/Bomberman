@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Random = UnityEngine.Random;
 
 public class GridHandler : MonoBehaviour
 {
@@ -17,10 +18,9 @@ public class GridHandler : MonoBehaviour
     public GameObject unbreakableWall;
     public int tileResolution;
 
-    public Bounds bounds;
+    public Dictionary<Player, int> players = new Dictionary<Player, int>();
 
-    public Player player1;
-    public List<Cell> cellsDebug = new List<Cell>();
+    public Bounds bounds;
 
     public List<TextAsset> mapsFiles = new List<TextAsset>();
 
@@ -86,7 +86,7 @@ public class GridHandler : MonoBehaviour
 
         if (c == null || c.occupied)
         {
-            map[GetCellIndexFromPos(position)].occupied = true;
+            map[GetCellIndexFromPos(position)].occupied = true;            
             return map[GetCellIndexFromPos(position)]; //Si on peut pas aller à la suivante on renvoie la tuile sur laquelle on est
         }
         else
@@ -95,6 +95,37 @@ public class GridHandler : MonoBehaviour
             return c;
         }
 
+
+    }
+
+    public List<Cell> GetAllCellsOfType(EntityType type, bool checkDestroyable = true)
+    {
+        List<Cell> result = new List<Cell>();
+        foreach(Cell c in map)
+        {
+            if(checkDestroyable)
+            {
+                if (c.type == type && c.destroyable) result.Add(c);
+            }
+            else
+            {
+                if(c.type == type) result.Add(c);
+            }
+        }
+
+        return result;
+    }
+
+    public List<Cell> GetRandomCells(List<Cell> cells, int count)
+    {
+        List<Cell> result = cells;
+
+        for (int i = (cells.Count-1); i > count; i--)
+        {
+            result.RemoveAt(Random.Range(0, (result.Count-1)));
+        }
+
+        return result;
     }
 
     public Cell NextCell(Vector3 position, Direction direction, int range = 1)
@@ -154,6 +185,22 @@ public class GridHandler : MonoBehaviour
         cell.type = EntityType.Wall;
         cell.occupied = true;
         cell.destroyable = false;
+    }
+
+    public void CheckPlayer()
+    {
+        foreach(Cell c in map)
+        foreach (Player p in players.Keys)
+        {
+            if (p.transform.position == c.pos)
+            {
+                c.entity = p.gameObject;
+            }
+            else
+            {
+                c.entity = null;
+            }
+        }
     }
 
     public List<Cell> GetAllEmptyCells(bool includeBombs = false)
