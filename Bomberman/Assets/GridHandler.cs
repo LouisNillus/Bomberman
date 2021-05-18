@@ -35,7 +35,7 @@ public class GridHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        cellsDebug = CrossCells(player1.gameObject.transform.position, 3);
+        //cellsDebug = CrossCells(player1.gameObject.transform.position, 3);
     }
 
     public void InitMap()
@@ -101,25 +101,25 @@ public class GridHandler : MonoBehaviour
             case Direction.Up:
                 if (GetCellIndexFromPos(position) + (rows*range) < map.Length)
                 {
-                    c = map[GetCellIndexFromPos(position) + rows];
+                    c = map[GetCellIndexFromPos(position) + (rows*range)];
                 }
                 break;
             case Direction.Down:
                 if (GetCellIndexFromPos(position) - (rows*range) >= 0)
                 {
-                    c = map[GetCellIndexFromPos(position) - rows];
+                    c = map[GetCellIndexFromPos(position) - (rows * range)];
                 }
                 break;
             case Direction.Right:
                 if (GetCellIndexFromPos(position) + (1*range) < map.Length)
                 {
-                    c = map[GetCellIndexFromPos(position) + 1];
+                    c = map[GetCellIndexFromPos(position) + (1 * range)];
                 }
                 break;
             case Direction.Left:
                 if (GetCellIndexFromPos(position) - (1*range) >= 0)
                 {
-                    c = map[GetCellIndexFromPos(position) - 1];
+                    c = map[GetCellIndexFromPos(position) - (1 * range)];
                 }
                 break;
         }
@@ -179,7 +179,7 @@ public class GridHandler : MonoBehaviour
         for (int i = 1; i <= radius; i++)
         {
             if (NextCell(from, Direction.Up, i) != null)
-            { 
+            {
                 if(upBlock == false) cells.Add(NextCell(from, Direction.Up, i));
                 if (NextCell(from, Direction.Up, i).type == EntityType.Wall) upBlock = true;
             }
@@ -188,18 +188,17 @@ public class GridHandler : MonoBehaviour
                 if (downBlock == false) cells.Add(NextCell(from, Direction.Down, i));
                 if (NextCell(from, Direction.Down, i).type == EntityType.Wall) downBlock = true;
             }
-            if (NextCell(from, Direction.Right, i) != null) 
+            if (NextCell(from, Direction.Right, i) != null)
             {
-                if (rightBlock == false) cells.Add(NextCell(from, Direction.Right, i));
+                if (rightBlock == false && PreventTeleport(GetCellFromPos(from), NextCell(from, Direction.Right, i)) == false) cells.Add(NextCell(from, Direction.Right, i));
                 if (NextCell(from, Direction.Right, i).type == EntityType.Wall) rightBlock = true;
             }
-            if (NextCell(from, Direction.Left, i) != null) 
+            if (NextCell(from, Direction.Left, i) != null)
             {
-                if (leftBlock == false) cells.Add(NextCell(from, Direction.Left, i));
+                if (leftBlock == false && PreventTeleport(GetCellFromPos(from), NextCell(from, Direction.Left, i)) == false) cells.Add(NextCell(from, Direction.Left, i));
                 if (NextCell(from, Direction.Left, i).type == EntityType.Wall) leftBlock = true;
             }
-        }
-        
+        }       
 
         if (includeSelf) cells.Add(GetCellFromPos(from));
 
