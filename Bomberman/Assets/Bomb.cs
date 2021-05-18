@@ -35,6 +35,8 @@ public class Bomb : MonoBehaviour
         yield return new WaitForSeconds(explosionTimer);
         Boom();
 
+        foreach (Cell c in GridHandler.instance.CrossCells(this.transform.position, 3)) Destroy(c.entity);
+
         GridHandler.instance.GetCellFromPos(transform.position).type = EntityType.None;
         Destroy(this.gameObject);
     }

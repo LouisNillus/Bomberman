@@ -23,22 +23,22 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(keys.keyRight))
+        if(Input.GetKeyDown(keys.keyRight) && gh.PreventTeleport(gh.GetCellFromPos(transform.position), gh.NextCell(transform.position, Direction.Right)) == false)
         {
             gh.GetCellFromPos(this.transform.position).FreeCell();
             this.transform.position = gh.GoToNextCell(transform.position, Direction.Right).pos;
         }
-        if (Input.GetKeyDown(keys.keyLeft))
+        else if (Input.GetKeyDown(keys.keyLeft) && gh.PreventTeleport(gh.GetCellFromPos(transform.position), gh.NextCell(transform.position, Direction.Left)) == false)
         {
             gh.GetCellFromPos(this.transform.position).FreeCell();
             this.transform.position = gh.GoToNextCell(transform.position, Direction.Left).pos;
         }
-        if (Input.GetKeyDown(keys.keyUp))
+        else if (Input.GetKeyDown(keys.keyUp))
         {
             gh.GetCellFromPos(this.transform.position).FreeCell();
             this.transform.position = gh.GoToNextCell(transform.position, Direction.Up).pos;
         }
-        if (Input.GetKeyDown(keys.keyDown))
+        else if (Input.GetKeyDown(keys.keyDown))
         {
             gh.GetCellFromPos(this.transform.position).FreeCell();
             this.transform.position = gh.GoToNextCell(transform.position, Direction.Down).pos;

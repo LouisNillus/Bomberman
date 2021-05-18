@@ -18,6 +18,9 @@ public class GridHandler : MonoBehaviour
 
     public Bounds bounds;
 
+    public Player player1;
+    public List<Cell> cellsDebug = new List<Cell>();
+
     private void Awake()
     {
         instance = this;
@@ -32,7 +35,7 @@ public class GridHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        cellsDebug = CrossCells(player1.gameObject.transform.position, 3);
     }
 
     public void InitMap()
@@ -74,40 +77,12 @@ public class GridHandler : MonoBehaviour
 
     public Cell GoToNextCell(Vector3 position, Direction direction)
     {
-        Cell c = null;
-
-        switch (direction)
-        {
-            case Direction.Up:
-                if (GetCellIndexFromPos(position) + rows < map.Length)
-                {
-                    c = map[GetCellIndexFromPos(position) + rows];
-                }
-                break;
-            case Direction.Down:
-                if (GetCellIndexFromPos(position) - rows >= 0)
-                {
-                    c = map[GetCellIndexFromPos(position) - rows];
-                }
-                break;
-            case Direction.Right:
-                if (GetCellIndexFromPos(position) + 1 < map.Length)
-                {
-                    c = map[GetCellIndexFromPos(position) + 1];
-                }
-                break;
-            case Direction.Left:
-                if (GetCellIndexFromPos(position) - 1 >= 0)
-                {
-                    c = map[GetCellIndexFromPos(position) - 1];
-                }
-                break;
-        }
+        Cell c = NextCell(position, direction);
 
         if (c == null || c.occupied)
         {
             map[GetCellIndexFromPos(position)].occupied = true;
-            return map[GetCellIndexFromPos(position)]; //Si on peut pas aller à la suivante on renvoie le case sur laquelle on est
+            return map[GetCellIndexFromPos(position)]; //Si on peut pas aller à la suivante on renvoie la tuile sur laquelle on est
         }
         else
         {
@@ -115,6 +90,41 @@ public class GridHandler : MonoBehaviour
             return c;
         }
 
+    }
+
+    public Cell NextCell(Vector3 position, Direction direction, int range = 1)
+    {
+        Cell c = null;
+
+        switch (direction)
+        {
+            case Direction.Up:
+                if (GetCellIndexFromPos(position) + (rows*range) < map.Length)
+                {
+                    c = map[GetCellIndexFromPos(position) + rows];
+                }
+                break;
+            case Direction.Down:
+                if (GetCellIndexFromPos(position) - (rows*range) >= 0)
+                {
+                    c = map[GetCellIndexFromPos(position) - rows];
+                }
+                break;
+            case Direction.Right:
+                if (GetCellIndexFromPos(position) + (1*range) < map.Length)
+                {
+                    c = map[GetCellIndexFromPos(position) + 1];
+                }
+                break;
+            case Direction.Left:
+                if (GetCellIndexFromPos(position) - (1*range) >= 0)
+                {
+                    c = map[GetCellIndexFromPos(position) - 1];
+                }
+                break;
+        }
+
+        return c;
     }
 
     public float TileSize()
@@ -128,7 +138,7 @@ public class GridHandler : MonoBehaviour
 
     public void SetWall(Cell cell)
     {
-        Instantiate(wallPrefab, cell.pos, Quaternion.identity);
+        cell.entity = Instantiate(wallPrefab, cell.pos, Quaternion.identity);
         cell.type = EntityType.Wall;
         cell.occupied = true;
     }
@@ -159,18 +169,54 @@ public class GridHandler : MonoBehaviour
     {
         List<Cell> cells = new List<Cell>();
 
-        foreach(Cell c in map)
-        {
-            for (int i = 0; i < 4; i++)
-            {
-                for (int j = 0; j < 8; j++)//TO COMPLETE
-                {
+        if (radius < 1) radius = 1;
 
-                }
+        bool upBlock = false;
+        bool downBlock = false;
+        bool rightBlock = false;
+        bool leftBlock = false;
+
+        for (int i = 1; i <= radius; i++)
+        {
+            if (NextCell(from, Direction.Up, i) != null)
+            { 
+                if(upBlock == false) cells.Add(NextCell(from, Direction.Up, i));
+                if (NextCell(from, Direction.Up, i).type == EntityType.Wall) upBlock = true;
+            }
+            if (NextCell(from, Direction.Down, i) != null) 
+            {
+                if (downBlock == false) cells.Add(NextCell(from, Direction.Down, i));
+                if (NextCell(from, Direction.Down, i).type == EntityType.Wall) downBlock = true;
+            }
+            if (NextCell(from, Direction.Right, i) != null) 
+            {
+                if (rightBlock == false) cells.Add(NextCell(from, Direction.Right, i));
+                if (NextCell(from, Direction.Right, i).type == EntityType.Wall) rightBlock = true;
+            }
+            if (NextCell(from, Direction.Left, i) != null) 
+            {
+                if (leftBlock == false) cells.Add(NextCell(from, Direction.Left, i));
+                if (NextCell(from, Direction.Left, i).type == EntityType.Wall) leftBlock = true;
             }
         }
+        
+
+        if (includeSelf) cells.Add(GetCellFromPos(from));
 
         return cells;
+    }
+
+    public bool PreventTeleport(Cell from, Cell to)
+    {
+        if (to == null) return true;
+
+        if ((from.pos.x < to.pos.x && from.pos.y > to.pos.y) || (from.pos.x > to.pos.x && from.pos.y < to.pos.y)) return true;
+        else return false;
+    }
+
+    public bool ExistingIndex(int index)
+    {
+        return (index >= 0 && index < map.Length);
     }
 }
 
@@ -179,6 +225,7 @@ public class Cell
 {
     public Vector3 pos = Vector3.zero;
     public GameObject tile;
+    public GameObject entity;
     public EntityType type;
     public bool occupied = false;
 
