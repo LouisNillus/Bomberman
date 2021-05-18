@@ -5,6 +5,7 @@ using UnityEngine;
 public class Bomb : MonoBehaviour
 {
     public float explosionTimer;
+    public GameObject explosion;
     public int range = 1;
 
     public Bomb(float explosionTimer)
@@ -42,6 +43,10 @@ public class Bomb : MonoBehaviour
                 Destroy(c.entity);
                 c.FreeCell();
             }
+
+            if (c.player != null) c.player.TakeDamages(1);
+
+            Instantiate(explosion, c.pos, Quaternion.identity);
         }
 
         GridHandler.instance.GetCellFromPos(transform.position).type = EntityType.None;

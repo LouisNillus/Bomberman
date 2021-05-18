@@ -290,9 +290,6 @@ public class GridHandler : MonoBehaviour
         return (index >= 0 && index < map.Length);
     }
 
-
-
-
     public void ReadMap()
     {
         TextAsset data = mapsFiles[UnityEngine.Random.Range(0, mapsFiles.Count)];
@@ -313,7 +310,8 @@ public class GridHandler : MonoBehaviour
 
                 switch (_rows[j])
                 {
-                    case "0": break;
+                    case "0":
+                        break;
                     case "1":
                         SetWall(c);
                         break;

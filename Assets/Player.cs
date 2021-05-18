@@ -95,6 +95,11 @@ public class Player : MonoBehaviour
                 gh.SetWall(c);
             }
         }
+
+    }
+    public void TakeDamages(int amount)
+    {
+        HP -= amount;
     }
 }
 
