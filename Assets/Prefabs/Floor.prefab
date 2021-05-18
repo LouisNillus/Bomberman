@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3429958996692416957}
   - component: {fileID: 7868025161000533805}
   m_Layer: 0
-  m_Name: BlueBox
+  m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -71,7 +71,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: 21300000, guid: 6b00a1ebb2628c84792bdb78eac9b7d3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 888c1238557f74441a50bd04ce20268a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
