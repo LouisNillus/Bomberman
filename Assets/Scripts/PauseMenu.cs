@@ -6,12 +6,12 @@ using UnityEngine;
 public class PauseMenu : MonoBehaviour
 {
 
-    [SerializeField] private GameObject _PausePanel;
+    [SerializeField] private GameObject _pausePanel;
 
 
     public void Show(bool p_show)
     {
-        _PausePanel.SetActive(p_show);
+        _pausePanel.SetActive(p_show);
     }
 
     public void Resume()
