@@ -235,40 +235,10 @@ public class GridHandler : MonoBehaviour
             {
                 if (rows[j] != "")
                 {
-                    if (j == 0)
-                    {
-                        c.name = rows[j];
-                    }
-                    else
-                    {
-                        Message m = new Message();
-
-                        string[] inMsgSplit = rows[j].Split(new char[] { '_' });
-
-                        if (inMsgSplit.Length != 3)
-                            break;
-
-                        for (int k = 0; k < inMsgSplit.Length; k++)
-                        {
-                            m.time = inMsgSplit[0];
-
-                            if (inMsgSplit[1] == "IN")
-                            {
-                                m.sender = Sender.In;
-                            }
-                            else if (inMsgSplit[1] == "OUT")
-                            {
-                                m.sender = Sender.Out;
-                            }
-
-                            m.message = inMsgSplit[2];
-                        }
-
-                        c.messages.Add(m);
-                    }
+                    
+                    
                 }
             }
-            MessagesManager.instance.contacts.Add(c);
         }
     }
 }
