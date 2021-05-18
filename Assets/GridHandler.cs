@@ -60,6 +60,17 @@ public class GridHandler : MonoBehaviour
         bounds = GetBounds();
     }
 
+    public void ClearMap()
+    {
+        for (int i = 0; i < map.Length; i++)
+        {
+            map[i].FreeCell();
+            Destroy(map[i].entity);
+            map[i].player = null;
+            map[i].type = EntityType.None;
+        }
+    }
+
     public Cell GetCellFromPos(Vector3 pos)
     {
         foreach (Cell c in map)
@@ -292,6 +303,8 @@ public class GridHandler : MonoBehaviour
 
     public void ReadMap()
     {
+        ClearMap();
+
         TextAsset data = mapsFiles[UnityEngine.Random.Range(0, mapsFiles.Count)];
 
         string[] _lines = data.text.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
