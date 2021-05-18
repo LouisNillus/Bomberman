@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6349283638009348111}
   - component: {fileID: 6349283638009348110}
   - component: {fileID: 6349283638009348105}
+  - component: {fileID: 108278927}
   m_Layer: 0
   m_Name: Player2
   m_TagString: Untagged
@@ -108,3 +109,23 @@ MonoBehaviour:
   bombPrefab: {fileID: 1437677922601963140, guid: 06a825a514ba3a740871aaca0cacd9e2, type: 3}
   wallPrefab: {fileID: 1970044360144252319, guid: 048dcb8373b56c847852ebf315bd26e3, type: 3}
   playerDirection: 1
+  animator: {fileID: 108278927}
+--- !u!95 &108278927
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6349283638009348104}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a138caf3323ac6340b2019215d6f06bc, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
