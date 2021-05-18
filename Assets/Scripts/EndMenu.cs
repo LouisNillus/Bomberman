@@ -7,19 +7,27 @@ using UnityEngine.UI;
 
 public class EndMenu : MonoBehaviour
 {
+    public static EndMenu instance;
+
     [SerializeField] private GameObject _endPanel;
     [SerializeField] private Text _winText;
 
+    private void Awake()
+    {
+        instance = this;
+    }
 
     public void ShowEndMenu(string p_winner)
     {
         _endPanel.SetActive(true);
         _winText.text = $"The winner is : {p_winner}";
+        Time.timeScale = 0.0f;
     }
 
     public void Restart()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Time.timeScale = 1.0f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name); 
     }
 
     public void Quit()

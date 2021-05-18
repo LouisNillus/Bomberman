@@ -5,19 +5,30 @@ using UnityEngine;
 
 public class PauseMenu : MonoBehaviour
 {
+    public static PauseMenu instance;
 
     [SerializeField] private GameObject _pausePanel;
 
+    private void Awake()
+    {
+        instance = this;
+    }
 
     public void Show(bool p_show)
     {
         _pausePanel.SetActive(p_show);
+        if (p_show)
+        {
+            Time.timeScale = 0.0f;
+        }
+        else
+        {
+            Time.timeScale = 1.0f;
+        }
     }
 
     public void Resume()
     {
-        // Break pause State
-
         Show(false);
     }
 
