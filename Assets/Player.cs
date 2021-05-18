@@ -101,6 +101,11 @@ public class Player : MonoBehaviour
     {
         HP -= amount;
     }
+
+    public void CheckDeath()
+    {
+        if (HP <= 0) Debug.Log("");
+    }
 }
 
 [System.Serializable]

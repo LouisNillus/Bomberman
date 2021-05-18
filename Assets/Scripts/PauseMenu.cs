@@ -7,8 +7,6 @@ public class PauseMenu : MonoBehaviour
 {
     public static PauseMenu instance;
 
-    [SerializeField] private GameObject _pausePanel;
-
     private void Awake()
     {
         instance = this;
@@ -16,7 +14,7 @@ public class PauseMenu : MonoBehaviour
 
     public void Show(bool p_show)
     {
-        _pausePanel.SetActive(p_show);
+        this.gameObject.SetActive(p_show);
         if (p_show)
         {
             Time.timeScale = 0.0f;
