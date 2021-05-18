@@ -9,6 +9,9 @@ public class Player : MonoBehaviour
     [Range(0,10)]
     public int HP;
 
+    [Range(0,5)]
+    public int wallsRemaining;
+
     public PlayerKeys keys;
     public GameObject bombPrefab;
     public GameObject wallPrefab;
