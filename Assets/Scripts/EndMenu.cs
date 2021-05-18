@@ -7,9 +7,15 @@ using UnityEngine.UI;
 
 public class EndMenu : MonoBehaviour
 {
+    public static EndMenu instance;
+
     [SerializeField] private GameObject _endPanel;
     [SerializeField] private Text _winText;
 
+    private void Awake()
+    {
+        instance = this;
+    }
 
     public void ShowEndMenu(string p_winner)
     {

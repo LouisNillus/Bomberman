@@ -5,9 +5,14 @@ using UnityEngine;
 
 public class PauseMenu : MonoBehaviour
 {
+    public static PauseMenu instance;
 
     [SerializeField] private GameObject _pausePanel;
 
+    private void Awake()
+    {
+        instance = this;
+    }
 
     public void Show(bool p_show)
     {
@@ -24,8 +29,6 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
-        // Break pause State
-
         Show(false);
     }
 
