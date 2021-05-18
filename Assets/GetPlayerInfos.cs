@@ -9,6 +9,8 @@ public class GetPlayerInfos : MonoBehaviour
     TextMeshProUGUI value;
     public Player player;
 
+    public bool hp;
+
     // Start
     void Start()
     {
@@ -18,6 +20,7 @@ public class GetPlayerInfos : MonoBehaviour
     // Update
     void Update()
     {
-        value.text = "x" + player.wallsRemaining.ToString();
+        if(hp) value.text = "x" + player.HP.ToString();
+        else value.text = "x" + player.wallsRemaining.ToString();
     }
 }

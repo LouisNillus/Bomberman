@@ -10,6 +10,9 @@ public class AutoCenterCamera : MonoBehaviour
     void Start()
     {
         gh = GridHandler.instance;
-        Camera.main.transform.position = new Vector3((gh.rows / 2) * gh.TileSize() - (gh.TileSize() / 2), (gh.lines / 2) * gh.TileSize() - (gh.TileSize()/2), -10);
+
+        if(gh.rows%2 == 0) Camera.main.transform.position = new Vector3((gh.rows / 2) * gh.TileSize() - (gh.TileSize() / 2), (gh.lines / 2) * gh.TileSize() - (gh.TileSize()/2), -10);
+        else Camera.main.transform.position = new Vector3((gh.rows / 2) * gh.TileSize() - (gh.TileSize() / 2), (gh.lines / 2) * gh.TileSize(), -10);
+            
     }
 }

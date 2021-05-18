@@ -40,7 +40,7 @@ public class Player : MonoBehaviour
     {
         PlayerDirection = Direction.Down;
         gh = GridHandler.instance;
-        id = int.Parse(Random.Range(0, 99).ToString() + Random.Range(0, 99).ToString());
+        //id = int.Parse(Random.Range(0, 99).ToString() + Random.Range(0, 99).ToString());
         gh.players.Add(this);
     }
 
@@ -116,11 +116,20 @@ public class Player : MonoBehaviour
     public void TakeDamages(int amount)
     {
         HP -= amount;
+        CheckDeath();
     }
 
     public void CheckDeath()
     {
-        if (HP <= 0) Debug.Log("");
+        if (HP <= 0)
+        {
+            string winner = "Player ";
+            foreach(Player p in gh.players)
+            {
+                if (p.id != id) winner += id;
+            }
+            EndMenu.instance.ShowEndMenu(winner);
+        }
     }
 }
 

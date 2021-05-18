@@ -27,7 +27,10 @@ public class EndMenu : MonoBehaviour
     public void Restart()
     {
         Time.timeScale = 1.0f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name); 
+        _endPanel.SetActive(false);
+
+        GridHandler.instance.ReadMap();
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name); 
     }
 
     public void Quit()
