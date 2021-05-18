@@ -220,14 +220,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   HP: 2
+  wallsRemaining: 0
   keys:
     keyUp: 273
     keyDown: 274
     keyLeft: 276
     keyRight: 275
     bomb: 32
-    wall: 0
+    wall: 104
   bombPrefab: {fileID: 871845065480491905, guid: d1f08af2ee9a26742af53872b4548806, type: 3}
+  wallPrefab: {fileID: 1970044360144252319, guid: 048dcb8373b56c847852ebf315bd26e3, type: 3}
+  playerDirection: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -239,6 +242,7 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
+  - component: {fileID: 519420030}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -254,6 +258,18 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
+--- !u!114 &519420030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 633486822d92fe9448a2b430844f8489, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -359,6 +375,7 @@ MonoBehaviour:
   map: []
   tilePrefab: {fileID: 6127718801637892305, guid: c62f71460d63818488d647e8106a04fe, type: 3}
   wallPrefab: {fileID: 1970044360144252319, guid: 048dcb8373b56c847852ebf315bd26e3, type: 3}
+  unbreakableWall: {fileID: 1648796240307826061, guid: a736ba0f5b730a847b148f11a35d3c99, type: 3}
   tileResolution: 16
   bounds:
     top: 0
@@ -367,6 +384,8 @@ MonoBehaviour:
     right: 0
   player1: {fileID: 242404699}
   cellsDebug: []
+  mapsFiles:
+  - {fileID: 4900000, guid: 72013c5a3af55b34881a08f48e623dfb, type: 3}
 --- !u!1 &1746547114
 GameObject:
   m_ObjectHideFlags: 0
@@ -399,6 +418,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   HP: 2
+  wallsRemaining: 0
   keys:
     keyUp: 122
     keyDown: 115
@@ -407,6 +427,8 @@ MonoBehaviour:
     bomb: 0
     wall: 0
   bombPrefab: {fileID: 871845065480491905, guid: d1f08af2ee9a26742af53872b4548806, type: 3}
+  wallPrefab: {fileID: 1970044360144252319, guid: 048dcb8373b56c847852ebf315bd26e3, type: 3}
+  playerDirection: 0
 --- !u!212 &1746547116
 SpriteRenderer:
   m_ObjectHideFlags: 0

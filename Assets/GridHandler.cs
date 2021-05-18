@@ -14,12 +14,15 @@ public class GridHandler : MonoBehaviour
     public Cell[] map;
     public GameObject tilePrefab;
     public GameObject wallPrefab;
+    public GameObject unbreakableWall;
     public int tileResolution;
 
     public Bounds bounds;
 
     public Player player1;
     public List<Cell> cellsDebug = new List<Cell>();
+
+    public List<TextAsset> mapsFiles = new List<TextAsset>();
 
     private void Awake()
     {
@@ -36,6 +39,8 @@ public class GridHandler : MonoBehaviour
     void Update()
     {
         //cellsDebug = CrossCells(player1.gameObject.transform.position, 3);
+
+        if(Input.GetKeyDown(KeyCode.Y)) ReadMap();
     }
 
     public void InitMap()
@@ -143,6 +148,14 @@ public class GridHandler : MonoBehaviour
         cell.occupied = true;
     }
 
+    public void SetUnbreakableWall(Cell cell)
+    {
+        cell.entity = Instantiate(unbreakableWall, cell.pos, Quaternion.identity);
+        cell.type = EntityType.Wall;
+        cell.occupied = true;
+        cell.destroyable = false;
+    }
+
     public List<Cell> GetAllEmptyCells(bool includeBombs = false)
     {
         List<Cell> cells = new List<Cell>();
@@ -223,20 +236,32 @@ public class GridHandler : MonoBehaviour
 
     public void ReadMap()
     {
-        TextAsset messagesData = Resources.Load<TextAsset>("Map");
+        TextAsset data = mapsFiles[UnityEngine.Random.Range(0, mapsFiles.Count)];
 
-        string[] data = messagesData.text.Split(new char[] { '\n' });
+        string[] _lines = data.text.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
 
-        for (int i = 0; i < data.Length; i++)
+        if(lines != _lines.Length) Debug.LogError("Lines count doesn't match with map file");
+
+        for (int i = _lines.Length-1; i >= 0; i--)
         {
-            string[] rows = data[i].Split(new char[] { '\t' });
+            string[] _rows = _lines[i].Split(',');
 
-            for (int j = 0; j < rows.Length; j++)
+            if (rows != _rows.Length) Debug.LogError("Rows count doesn't match with map file");
+
+            for (int j = 0; j < _rows.Length; j++)
             {
-                if (rows[j] != "")
+                switch(_rows[j])
                 {
-                    
-                    
+                    case "0": break;
+                    case "1":
+                        SetWall(map[((_lines.Length-1 - i) * _rows.Length) + j]);
+                        break;
+                    case "2":
+                        SetUnbreakableWall(map[((_lines.Length - 1 - i) * _rows.Length) + j]);
+                        break;
+                    //case "3":
+                    //case "X":
+                    //case "Y":
                 }
             }
         }
@@ -251,6 +276,7 @@ public class Cell
     public GameObject entity;
     public EntityType type;
     public bool occupied = false;
+    public bool destroyable = true;
 
     public Cell(Vector3 pos)
     {
