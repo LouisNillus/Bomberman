@@ -15,11 +15,13 @@ public class EndMenu : MonoBehaviour
     {
         _endPanel.SetActive(true);
         _winText.text = $"The winner is : {p_winner}";
+        Time.timeScale = 0.0f;
     }
 
     public void Restart()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Time.timeScale = 1.0f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name); 
     }
 
     public void Quit()

@@ -12,6 +12,14 @@ public class PauseMenu : MonoBehaviour
     public void Show(bool p_show)
     {
         _pausePanel.SetActive(p_show);
+        if (p_show)
+        {
+            Time.timeScale = 0.0f;
+        }
+        else
+        {
+            Time.timeScale = 1.0f;
+        }
     }
 
     public void Resume()
