@@ -15,6 +15,7 @@ public class GridHandler : MonoBehaviour
     public Cell[] map;
     public GameObject tilePrefab;
     public GameObject wallPrefab;
+    public GameObject pressurePlate;
     public GameObject unbreakableWall;
     public int tileResolution;
 
@@ -174,9 +175,12 @@ public class GridHandler : MonoBehaviour
 
     public void SetWall(Cell cell)
     {
-        cell.entity = Instantiate(wallPrefab, cell.pos, Quaternion.identity);
-        cell.type = EntityType.Wall;
-        cell.occupied = true;
+        if(cell.occupied == false)
+        {
+            cell.entity = Instantiate(wallPrefab, cell.pos, Quaternion.identity);
+            cell.type = EntityType.Wall;
+            cell.occupied = true;
+        }
     }
 
     public void SetUnbreakableWall(Cell cell)
@@ -184,6 +188,14 @@ public class GridHandler : MonoBehaviour
         cell.entity = Instantiate(unbreakableWall, cell.pos, Quaternion.identity);
         cell.type = EntityType.Wall;
         cell.occupied = true;
+        cell.destroyable = false;
+    }
+
+    public void SetPressurePlate(Cell cell)
+    {
+        cell.entity = Instantiate(pressurePlate, cell.pos, Quaternion.identity);
+        cell.type = EntityType.PressurePlate;
+        cell.occupied = false;
         cell.destroyable = false;
     }
 
@@ -308,7 +320,9 @@ public class GridHandler : MonoBehaviour
                     case "2":
                         SetUnbreakableWall(c);
                         break;
-                    //case "3":
+                    case "P":
+                        SetPressurePlate(c);
+                        break;
                     case "X":
                         players[0].transform.position = c.pos;
                         break;
@@ -361,4 +375,4 @@ public class Bounds
 }
 
 public enum Direction {Up, Down, Left, Right}
-public enum EntityType {None, Bomb, Wall}
+public enum EntityType {None, Bomb, Wall, PressurePlate}

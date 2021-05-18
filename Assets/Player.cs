@@ -74,7 +74,7 @@ public class Player : MonoBehaviour
 
         if(Input.GetKeyDown(keys.bomb))
         {
-            if (gh.NextCell(this.transform.position, playerDirection).type == EntityType.None)
+            if (gh.NextCell(this.transform.position, playerDirection).type == EntityType.None && gh.PreventTeleport(gh.GetCellFromPos(transform.position), gh.NextCell(transform.position, playerDirection)) == false)
             {
                 Instantiate(bombPrefab, gh.NextCell(this.transform.position, playerDirection).pos, Quaternion.identity);
             }
@@ -82,7 +82,7 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(keys.wall))
         {
-            if (gh.NextCell(this.transform.position, playerDirection).type == EntityType.None)
+            if (gh.NextCell(this.transform.position, playerDirection).type == EntityType.None && gh.PreventTeleport(gh.GetCellFromPos(transform.position), gh.NextCell(transform.position, playerDirection)) == false)
             {
                 gh.SetWall(gh.NextCell(this.transform.position, playerDirection));
             }
