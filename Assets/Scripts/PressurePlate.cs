@@ -22,9 +22,17 @@ public class PressurePlate : MonoBehaviour
             if (GridHandler.instance.GetCellFromPos(player.transform.position) == cell)
             {
                 _animator.Play("PressurePlateOn");
-                
-                break;
+                var walls = GridHandler.instance.GetAllCellsOfType(EntityType.Wall);
+                var selectedWalls = GridHandler.instance.GetRandomCells(walls, (int) (walls.Count * 0.25f));
+                foreach (Cell wall in selectedWalls)
+                {
+                    Destroy(wall.entity.gameObject);
+                }
+
+                active = false;
             }
+
+            if (!active) break;
         }
     }
 }
