@@ -41,7 +41,6 @@ public class Bomb : MonoBehaviour
             {
                 Destroy(c.entity);
                 c.FreeCell();
-                c.type = EntityType.None;
             }
         }
 
