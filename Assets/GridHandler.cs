@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Random = UnityEngine.Random;
 
 public class GridHandler : MonoBehaviour
 {
@@ -14,13 +15,13 @@ public class GridHandler : MonoBehaviour
     public Cell[] map;
     public GameObject tilePrefab;
     public GameObject wallPrefab;
+    public GameObject pressurePlate;
     public GameObject unbreakableWall;
     public int tileResolution;
 
-    public Bounds bounds;
+    public List<Player> players = new List<Player>();
 
-    public Player player1;
-    public List<Cell> cellsDebug = new List<Cell>();
+    public Bounds bounds;
 
     public List<TextAsset> mapsFiles = new List<TextAsset>();
 
@@ -86,7 +87,7 @@ public class GridHandler : MonoBehaviour
 
         if (c == null || c.occupied)
         {
-            map[GetCellIndexFromPos(position)].occupied = true;
+            map[GetCellIndexFromPos(position)].occupied = true;            
             return map[GetCellIndexFromPos(position)]; //Si on peut pas aller à la suivante on renvoie la tuile sur laquelle on est
         }
         else
@@ -95,6 +96,37 @@ public class GridHandler : MonoBehaviour
             return c;
         }
 
+
+    }
+
+    public List<Cell> GetAllCellsOfType(EntityType type, bool checkDestroyable = true)
+    {
+        List<Cell> result = new List<Cell>();
+        foreach(Cell c in map)
+        {
+            if(checkDestroyable)
+            {
+                if (c.type == type && c.destroyable) result.Add(c);
+            }
+            else
+            {
+                if(c.type == type) result.Add(c);
+            }
+        }
+
+        return result;
+    }
+
+    public List<Cell> GetRandomCells(List<Cell> cells, int count)
+    {
+        List<Cell> result = cells;
+
+        for (int i = (cells.Count-1); i > count; i--)
+        {
+            result.RemoveAt(Random.Range(0, (result.Count-1)));
+        }
+
+        return result;
     }
 
     public Cell NextCell(Vector3 position, Direction direction, int range = 1)
@@ -143,9 +175,12 @@ public class GridHandler : MonoBehaviour
 
     public void SetWall(Cell cell)
     {
-        cell.entity = Instantiate(wallPrefab, cell.pos, Quaternion.identity);
-        cell.type = EntityType.Wall;
-        cell.occupied = true;
+        if(cell.occupied == false)
+        {
+            cell.entity = Instantiate(wallPrefab, cell.pos, Quaternion.identity);
+            cell.type = EntityType.Wall;
+            cell.occupied = true;
+        }
     }
 
     public void SetUnbreakableWall(Cell cell)
@@ -154,6 +189,30 @@ public class GridHandler : MonoBehaviour
         cell.type = EntityType.Wall;
         cell.occupied = true;
         cell.destroyable = false;
+    }
+
+    public void SetPressurePlate(Cell cell)
+    {
+        cell.entity = Instantiate(pressurePlate, cell.pos, Quaternion.identity);
+        cell.type = EntityType.PressurePlate;
+        cell.occupied = false;
+        cell.destroyable = false;
+    }
+
+    public void CheckPlayer()
+    {
+        foreach(Cell c in map)
+        foreach (Player p in players)
+        {
+            if (p.transform.position == c.pos)
+            {
+                c.player = p;
+            }
+            else
+            {
+                c.player = null;
+            }
+        }
     }
 
     public List<Cell> GetAllEmptyCells(bool includeBombs = false)
@@ -250,18 +309,26 @@ public class GridHandler : MonoBehaviour
 
             for (int j = 0; j < _rows.Length; j++)
             {
-                switch(_rows[j])
+                Cell c = map[((_lines.Length - 1 - i) * _rows.Length) + j];
+
+                switch (_rows[j])
                 {
                     case "0": break;
                     case "1":
-                        SetWall(map[((_lines.Length-1 - i) * _rows.Length) + j]);
+                        SetWall(c);
                         break;
                     case "2":
-                        SetUnbreakableWall(map[((_lines.Length - 1 - i) * _rows.Length) + j]);
+                        SetUnbreakableWall(c);
                         break;
-                    //case "3":
-                    //case "X":
-                    //case "Y":
+                    case "P":
+                        SetPressurePlate(c);
+                        break;
+                    case "X":
+                        players[0].transform.position = c.pos;
+                        break;
+                    case "Y":
+                        players[1].transform.position = c.pos;
+                        break;
                 }
             }
         }
@@ -274,6 +341,7 @@ public class Cell
     public Vector3 pos = Vector3.zero;
     public GameObject tile;
     public GameObject entity;
+    public Player player;
     public EntityType type;
     public bool occupied = false;
     public bool destroyable = true;
@@ -307,4 +375,4 @@ public class Bounds
 }
 
 public enum Direction {Up, Down, Left, Right}
-public enum EntityType {None, Bomb, Wall}
+public enum EntityType {None, Bomb, Wall, PressurePlate}

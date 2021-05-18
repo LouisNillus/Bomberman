@@ -20,13 +20,15 @@ public class Player : MonoBehaviour
 
     GridHandler gh;
 
-    // Start is called before the first frame update
+    // Start
     void Start()
     {
         gh = GridHandler.instance;
+        id = int.Parse(Random.Range(0, 99).ToString() + Random.Range(0, 99).ToString());
+        gh.players.Add(this);
     }
 
-    // Update is called once per frame
+    // Update
     void Update()
     {
         if(Input.GetKeyDown(keys.keyRight) &&  gh.PreventTeleport(gh.GetCellFromPos(transform.position), gh.NextCell(transform.position, Direction.Right)) == false)
@@ -35,6 +37,7 @@ public class Player : MonoBehaviour
             {
                 gh.GetCellFromPos(this.transform.position).FreeCell();
                 this.transform.position = gh.GoToNextCell(transform.position, Direction.Right).pos;
+                gh.CheckPlayer();
             }
             else playerDirection = Direction.Right;
         }
@@ -44,6 +47,7 @@ public class Player : MonoBehaviour
             {
                 gh.GetCellFromPos(this.transform.position).FreeCell();
                 this.transform.position = gh.GoToNextCell(transform.position, Direction.Left).pos;
+                gh.CheckPlayer();
             }
             else playerDirection = Direction.Left;
         }
@@ -53,6 +57,7 @@ public class Player : MonoBehaviour
             {
                 gh.GetCellFromPos(this.transform.position).FreeCell();
                 this.transform.position = gh.GoToNextCell(transform.position, Direction.Up).pos;
+                gh.CheckPlayer();
             }
             else playerDirection = Direction.Up;
         }
@@ -62,13 +67,14 @@ public class Player : MonoBehaviour
             {
                 gh.GetCellFromPos(this.transform.position).FreeCell();
                 this.transform.position = gh.GoToNextCell(transform.position, Direction.Down).pos;
+                gh.CheckPlayer();
             }
             else playerDirection = Direction.Down;
         }
 
         if(Input.GetKeyDown(keys.bomb))
         {
-            if (gh.NextCell(this.transform.position, playerDirection).type == EntityType.None)
+            if (gh.NextCell(this.transform.position, playerDirection).type == EntityType.None && gh.PreventTeleport(gh.GetCellFromPos(transform.position), gh.NextCell(transform.position, playerDirection)) == false)
             {
                 Instantiate(bombPrefab, gh.NextCell(this.transform.position, playerDirection).pos, Quaternion.identity);
             }
@@ -76,7 +82,7 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(keys.wall))
         {
-            if (gh.NextCell(this.transform.position, playerDirection).type == EntityType.None)
+            if (gh.NextCell(this.transform.position, playerDirection).type == EntityType.None && gh.PreventTeleport(gh.GetCellFromPos(transform.position), gh.NextCell(transform.position, playerDirection)) == false)
             {
                 gh.SetWall(gh.NextCell(this.transform.position, playerDirection));
             }

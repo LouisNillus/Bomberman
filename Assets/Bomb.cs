@@ -37,7 +37,7 @@ public class Bomb : MonoBehaviour
 
         foreach (Cell c in GridHandler.instance.CrossCells(this.transform.position, range))
         {
-            if (c.entity != null)
+            if (c.entity != null && c.destroyable)
             {
                 Destroy(c.entity);
                 c.FreeCell();
