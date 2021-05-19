@@ -115,6 +115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b4719be5f1d1c04bb570f84bf0b059b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionTimer: 3
+  explosionTimer: 0
   explosion: {fileID: 4547678012007466472, guid: 971019de5dafb5d46a3ff05201855e52, type: 3}
   range: 3
+  animationClip: {fileID: 7400000, guid: a77fabb9375aa0546b246e1283fe08e6, type: 2}
