@@ -40,6 +40,15 @@ public class PauseMenu : MonoBehaviour
         Show(false);
     }
 
+    public void Restart()
+    {
+        Time.timeScale = 1.0f;
+        pauseMenu.SetActive(false);
+
+        GridHandler.instance.ReadMap();
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name); 
+    }
+
     public void Quit()
     {
 #if UNITY_EDITOR

@@ -140,8 +140,14 @@ public class Player : MonoBehaviour
             {
                 if (p.id != id) winner = "Player " + p.id.ToString();
             }
-            EndMenu.instance.ShowEndMenu(winner);
+            StartCoroutine("EndGame", winner);
         }
+    }
+
+    public IEnumerator EndGame(string p_winner)
+    {
+        yield return new WaitForSeconds(2.0f);
+        EndMenu.instance.ShowEndMenu(p_winner);
     }
 
     public void ResetStats()
