@@ -21,6 +21,7 @@ public class BombItem : MonoBehaviour
             {
                 player.bombRange++;
                 cell.FreeCell();
+                player.StartCoroutine(player.PickupFeedback(0.5f));
                 cell.type = EntityType.None;
                 Destroy(this.gameObject);
             }

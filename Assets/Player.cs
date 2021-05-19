@@ -16,6 +16,10 @@ public class Player : MonoBehaviour
     [HideInInspector]
     public int initWalls;
 
+    public Color32 pickupColor;
+    public Color32 damagesColor;
+
+
     [Range(0, 10)]
     public int bombRange = 2;
     [HideInInspector]
@@ -123,6 +127,7 @@ public class Player : MonoBehaviour
     public void TakeDamages(int amount)
     {
         HP -= amount;
+        StartCoroutine(DamagesFeedback(0.5f));
         CheckDeath();
     }
 
@@ -144,6 +149,20 @@ public class Player : MonoBehaviour
         HP = initHP;
         bombRange = initRange;
         wallsRemaining = initWalls;
+    }
+
+    public IEnumerator DamagesFeedback(float duration)
+    {
+        GetComponent<SpriteRenderer>().color = damagesColor;
+        yield return new WaitForSeconds(duration);
+        GetComponent<SpriteRenderer>().color = Color.white;
+    }
+
+    public IEnumerator PickupFeedback(float duration)
+    {
+        GetComponent<SpriteRenderer>().color = pickupColor;
+        yield return new WaitForSeconds(duration);
+        GetComponent<SpriteRenderer>().color = Color.white;
     }
 }
 

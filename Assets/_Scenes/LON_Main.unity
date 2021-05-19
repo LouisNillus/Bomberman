@@ -447,6 +447,14 @@ PrefabInstance:
       propertyPath: keys.wall
       value: 257
       objectReference: {fileID: 0}
+    - target: {fileID: 3014529733084847237, guid: 8a3ec9e5c9c44d246baf4560e5576c89, type: 3}
+      propertyPath: pickupColor.rgba
+      value: 4278255374
+      objectReference: {fileID: 0}
+    - target: {fileID: 3014529733084847237, guid: 8a3ec9e5c9c44d246baf4560e5576c89, type: 3}
+      propertyPath: damagesColor.rgba
+      value: 4278190297
+      objectReference: {fileID: 0}
     - target: {fileID: 3014529733084847238, guid: 8a3ec9e5c9c44d246baf4560e5576c89, type: 3}
       propertyPath: m_Name
       value: Player1
@@ -1734,6 +1742,14 @@ PrefabInstance:
     - target: {fileID: 6349283638009348105, guid: 5c91ed282dd74eb44ba9bc010e9031bb, type: 3}
       propertyPath: keys.wall
       value: 101
+      objectReference: {fileID: 0}
+    - target: {fileID: 6349283638009348105, guid: 5c91ed282dd74eb44ba9bc010e9031bb, type: 3}
+      propertyPath: pickupColor.rgba
+      value: 4278255374
+      objectReference: {fileID: 0}
+    - target: {fileID: 6349283638009348105, guid: 5c91ed282dd74eb44ba9bc010e9031bb, type: 3}
+      propertyPath: damagesColor.rgba
+      value: 4278190297
       objectReference: {fileID: 0}
     - target: {fileID: 6349283638009348111, guid: 5c91ed282dd74eb44ba9bc010e9031bb, type: 3}
       propertyPath: m_LocalPosition.x

@@ -200,7 +200,6 @@ public class GridHandler : MonoBehaviour
     {
         if(cell.occupied == false)
         {
-            Debug.Log("Walled");
             cell.entity = Instantiate(wallPrefab, cell.pos, Quaternion.identity);
             cell.type = EntityType.Wall;
             cell.occupied = true;

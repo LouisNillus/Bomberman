@@ -22,6 +22,7 @@ public class Heal : MonoBehaviour
             {
                 Instantiate(particles, this.transform.position, Quaternion.identity);
                 player.HP++;
+                player.StartCoroutine(player.PickupFeedback(0.5f));
                 cell.FreeCell(); //Attention ca se trouve ça casse tout
                 cell.type = EntityType.None;
                 Destroy(this.gameObject);
