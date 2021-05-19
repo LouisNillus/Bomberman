@@ -4,13 +4,14 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class EndMenu : MonoBehaviour
 {
     public static EndMenu instance;
 
     [SerializeField] private GameObject _endPanel;
-    [SerializeField] private Text _winText;
+    [SerializeField] private TextMeshProUGUI _winText;
 
     private void Awake()
     {

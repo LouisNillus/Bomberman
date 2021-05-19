@@ -40,14 +40,24 @@ public class Bomb : MonoBehaviour
             if (c.entity != null && c.destroyable)
             {
                 Destroy(c.entity);               
+                c.FreeCell();
+                c.type = EntityType.None;
             }
 
-            if (c.player != null) c.player.TakeDamages(1);
+            
+            foreach (Player player in GridHandler.instance.players)
+            {
+                if (GridHandler.instance.GetCellFromPos(player.transform.position) == c)
+                {
+                    player.TakeDamages(1);
+                }
+            }
 
             Instantiate(explosion, c.pos, Quaternion.identity);
         }
 
         GridHandler.instance.GetCellFromPos(transform.position).type = EntityType.None;
+        GridHandler.instance.GetCellFromPos(transform.position).FreeCell();
         Destroy(this.gameObject);
     }
 

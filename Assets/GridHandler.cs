@@ -16,6 +16,7 @@ public class GridHandler : MonoBehaviour
     public GameObject tilePrefab;
     public GameObject wallPrefab;
     public GameObject pressurePlate;
+    public GameObject rangeUp;
     public GameObject healPotion;
     public GameObject unbreakableWall;
     public int tileResolution;
@@ -72,7 +73,11 @@ public class GridHandler : MonoBehaviour
             Destroy(c.tile);
             c.destroyable = true;
             c.type = EntityType.None;
+        }
 
+        foreach(Player p in players)
+        {
+            p.ResetStats();
         }
 
         InitMap();
@@ -204,7 +209,7 @@ public class GridHandler : MonoBehaviour
     public void SetUnbreakableWall(Cell cell)
     {
         cell.entity = Instantiate(unbreakableWall, cell.pos, Quaternion.identity);
-        cell.type = EntityType.Wall;
+        cell.type = EntityType.UnbreakableWall;
         cell.occupied = true;
         cell.destroyable = false;
     }
@@ -221,6 +226,14 @@ public class GridHandler : MonoBehaviour
     {
         cell.entity = Instantiate(healPotion, cell.pos, Quaternion.identity);
         cell.type = EntityType.HealPotion;
+        cell.occupied = false;
+        cell.destroyable = false;
+    }
+    
+    public void SetRangeUp(Cell cell)
+    {
+        cell.entity = Instantiate(rangeUp, cell.pos, Quaternion.identity);
+        cell.type = EntityType.RangeUp;
         cell.occupied = false;
         cell.destroyable = false;
     }
@@ -279,22 +292,22 @@ public class GridHandler : MonoBehaviour
             if (NextCell(from, Direction.Up, i) != null)
             {
                 if(upBlock == false) cells.Add(NextCell(from, Direction.Up, i));
-                if (NextCell(from, Direction.Up, i).type == EntityType.Wall) upBlock = true;
+                if (NextCell(from, Direction.Up, i).type == EntityType.Wall || NextCell(from, Direction.Up, i).type == EntityType.UnbreakableWall) upBlock = true;
             }
             if (NextCell(from, Direction.Down, i) != null) 
             {
                 if (downBlock == false) cells.Add(NextCell(from, Direction.Down, i));
-                if (NextCell(from, Direction.Down, i).type == EntityType.Wall) downBlock = true;
+                if (NextCell(from, Direction.Down, i).type == EntityType.Wall || NextCell(from, Direction.Down, i).type == EntityType.UnbreakableWall) downBlock = true;
             }
             if (NextCell(from, Direction.Right, i) != null)
             {
                 if (rightBlock == false && PreventTeleport(GetCellFromPos(from), NextCell(from, Direction.Right, i)) == false) cells.Add(NextCell(from, Direction.Right, i));
-                if (NextCell(from, Direction.Right, i).type == EntityType.Wall) rightBlock = true;
+                if (NextCell(from, Direction.Right, i).type == EntityType.Wall || NextCell(from, Direction.Right, i).type == EntityType.UnbreakableWall) rightBlock = true;
             }
             if (NextCell(from, Direction.Left, i) != null)
             {
                 if (leftBlock == false && PreventTeleport(GetCellFromPos(from), NextCell(from, Direction.Left, i)) == false) cells.Add(NextCell(from, Direction.Left, i));
-                if (NextCell(from, Direction.Left, i).type == EntityType.Wall) leftBlock = true;
+                if (NextCell(from, Direction.Left, i).type == EntityType.Wall || NextCell(from, Direction.Left, i).type == EntityType.UnbreakableWall) leftBlock = true;
             }
         }       
 
@@ -350,7 +363,7 @@ public class GridHandler : MonoBehaviour
                         SetPressurePlate(c);
                         break;
                     case "R":
-                        //players[0].transform.position = c.pos;
+                        SetRangeUp(c);
                         break;
                     case "H":
                         SetHealPotion(c);
@@ -358,14 +371,10 @@ public class GridHandler : MonoBehaviour
                     case "X":
                         players[0].transform.position = c.pos;
                         c.player = players[0];
-                        c.occupied = true;
-                        CheckPlayer();
                         break;
                     case "Y":
                         players[1].transform.position = c.pos;
                         c.player = players[1];
-                        c.occupied = true;
-                        CheckPlayer();
                         break;
                 }
             }
@@ -413,4 +422,4 @@ public class Bounds
 }
 
 public enum Direction {Up, Down, Left, Right}
-public enum EntityType {None, Bomb, Wall, PressurePlate, HealPotion}
+public enum EntityType {None, Bomb, UnbreakableWall, Wall, PressurePlate, HealPotion, RangeUp}
