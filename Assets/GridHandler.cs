@@ -36,6 +36,7 @@ public class GridHandler : MonoBehaviour
     void Start()
     {
         InitMap();
+        StartCoroutine(StartGame());
     }
 
     // Update is called once per frame
@@ -316,6 +317,16 @@ public class GridHandler : MonoBehaviour
         return cells;
     }
 
+    public IEnumerator StartGame()
+    {
+        while(players.Count < 2)
+        {
+            yield return null;
+        }
+
+        ReadMap(false);
+    }
+
     public bool PreventTeleport(Cell from, Cell to)
     {
         if (to == null) return true;
@@ -329,9 +340,9 @@ public class GridHandler : MonoBehaviour
         return (index >= 0 && index < map.Length);
     }
 
-    public void ReadMap()
+    public void ReadMap(bool clear = true)
     {
-        ClearMap();
+        if(clear) ClearMap();
 
         TextAsset data = mapsFiles[UnityEngine.Random.Range(0, mapsFiles.Count)];
 

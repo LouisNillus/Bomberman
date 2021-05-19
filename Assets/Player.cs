@@ -44,6 +44,7 @@ public class Player : MonoBehaviour
 
     GridHandler gh;
 
+
     // Start
     void Start()
     {
@@ -51,10 +52,11 @@ public class Player : MonoBehaviour
         initWalls = wallsRemaining;
         initRange = bombRange;
 
-        PlayerDirection = Direction.Down;
         gh = GridHandler.instance;
         //id = int.Parse(Random.Range(0, 99).ToString() + Random.Range(0, 99).ToString());
-        gh.players.Add(this);
+        gh.players.Add(this);   
+        
+        PlayerDirection = Direction.Down;
     }
 
     // Update
