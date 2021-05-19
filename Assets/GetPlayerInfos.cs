@@ -10,6 +10,7 @@ public class GetPlayerInfos : MonoBehaviour
     public Player player;
 
     public bool hp;
+    public bool range;
 
     // Start
     void Start()
@@ -21,6 +22,7 @@ public class GetPlayerInfos : MonoBehaviour
     void Update()
     {
         if(hp) value.text = "x" + player.HP.ToString();
+        else if(range) value.text = player.bombRange.ToString();
         else value.text = "x" + player.wallsRemaining.ToString();
     }
 }

@@ -8,9 +8,9 @@ public class Bomb : MonoBehaviour
     public GameObject explosion;
     public int range = 1;
 
-    public Bomb(float explosionTimer)
+    public Bomb(int range)
     {
-        this.explosionTimer = explosionTimer;
+        this.range = range;
     }
 
     private void OnEnable()
@@ -34,21 +34,30 @@ public class Bomb : MonoBehaviour
     public IEnumerator Explode()
     {
         yield return new WaitForSeconds(explosionTimer);
-        Boom();
 
         foreach (Cell c in GridHandler.instance.CrossCells(this.transform.position, range))
         {
             if (c.entity != null && c.destroyable)
             {
                 Destroy(c.entity);               
+                c.FreeCell();
+                c.type = EntityType.None;
             }
 
-            if (c.player != null) c.player.TakeDamages(1);
+            
+            foreach (Player player in GridHandler.instance.players)
+            {
+                if (GridHandler.instance.GetCellFromPos(player.transform.position) == c)
+                {
+                    player.TakeDamages(1);
+                }
+            }
 
             Instantiate(explosion, c.pos, Quaternion.identity);
         }
 
         GridHandler.instance.GetCellFromPos(transform.position).type = EntityType.None;
+        GridHandler.instance.GetCellFromPos(transform.position).FreeCell();
         Destroy(this.gameObject);
     }
 

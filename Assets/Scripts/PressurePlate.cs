@@ -26,6 +26,8 @@ public class PressurePlate : MonoBehaviour
                 var selectedWalls = GridHandler.instance.GetRandomCells(walls, (int) (walls.Count * 0.25f));
                 foreach (Cell wall in selectedWalls)
                 {
+                    wall.FreeCell();
+                    wall.type = EntityType.None;
                     Destroy(wall.entity.gameObject);
                 }
 

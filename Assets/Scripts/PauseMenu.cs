@@ -14,6 +14,14 @@ public class PauseMenu : MonoBehaviour
         instance = this;
     }
 
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            Show(!pauseMenu.activeInHierarchy);
+        }
+    }
+
     public void Show(bool p_show)
     {
         pauseMenu.SetActive(p_show);

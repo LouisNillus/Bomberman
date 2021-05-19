@@ -8,9 +8,18 @@ public class Player : MonoBehaviour
 
     [Range(0,10)]
     public int HP;
+    [HideInInspector]
+    public int initHP;
 
     [Range(0,10)]
     public int wallsRemaining;
+    [HideInInspector]
+    public int initWalls;
+
+    [Range(0, 10)]
+    public int bombRange = 2;
+    [HideInInspector]
+    public int initRange;
 
     public PlayerKeys keys;
     public GameObject bombPrefab;
@@ -35,13 +44,19 @@ public class Player : MonoBehaviour
 
     GridHandler gh;
 
+
     // Start
     void Start()
     {
-        PlayerDirection = Direction.Down;
+        initHP = HP;
+        initWalls = wallsRemaining;
+        initRange = bombRange;
+
         gh = GridHandler.instance;
         //id = int.Parse(Random.Range(0, 99).ToString() + Random.Range(0, 99).ToString());
-        gh.players.Add(this);
+        gh.players.Add(this);   
+        
+        PlayerDirection = Direction.Down;
     }
 
     // Update
@@ -92,26 +107,18 @@ public class Player : MonoBehaviour
         {
             if (gh.NextCell(this.transform.position, PlayerDirection).type == EntityType.None && gh.PreventTeleport(gh.GetCellFromPos(transform.position), gh.NextCell(transform.position, PlayerDirection)) == false)
             {
-                Instantiate(bombPrefab, gh.NextCell(this.transform.position, PlayerDirection).pos, Quaternion.identity);
+                Instantiate(bombPrefab, gh.NextCell(this.transform.position, PlayerDirection).pos, Quaternion.identity).GetComponent<Bomb>().range = bombRange;
             }
         }
 
-        if (Input.GetKeyDown(keys.wall))
+        if (Input.GetKeyDown(keys.wall) && wallsRemaining > 0)
         {
             if (gh.NextCell(this.transform.position, PlayerDirection).type == EntityType.None && gh.PreventTeleport(gh.GetCellFromPos(transform.position), gh.NextCell(transform.position, PlayerDirection)) == false)
             {
+                wallsRemaining--;
                 gh.SetWall(gh.NextCell(this.transform.position, PlayerDirection));
             }
         }
-
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            foreach(Cell c in gh.GetAllEmptyCells())
-            {
-                gh.SetWall(c);
-            }
-        }
-
     }
     public void TakeDamages(int amount)
     {
@@ -126,10 +133,17 @@ public class Player : MonoBehaviour
             string winner = "Player ";
             foreach(Player p in gh.players)
             {
-                if (p.id != id) winner += id;
+                if (p.id != id) winner = "Player " + p.id.ToString();
             }
             EndMenu.instance.ShowEndMenu(winner);
         }
+    }
+
+    public void ResetStats()
+    {
+        HP = initHP;
+        bombRange = initRange;
+        wallsRemaining = initWalls;
     }
 }
 
