@@ -8,9 +8,9 @@ public class Bomb : MonoBehaviour
     public GameObject explosion;
     public int range = 1;
 
-    public Bomb(float explosionTimer)
+    public Bomb(int range)
     {
-        this.explosionTimer = explosionTimer;
+        this.range = range;
     }
 
     private void OnEnable()
@@ -34,7 +34,6 @@ public class Bomb : MonoBehaviour
     public IEnumerator Explode()
     {
         yield return new WaitForSeconds(explosionTimer);
-        Boom();
 
         foreach (Cell c in GridHandler.instance.CrossCells(this.transform.position, range))
         {

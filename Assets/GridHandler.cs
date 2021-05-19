@@ -16,6 +16,7 @@ public class GridHandler : MonoBehaviour
     public GameObject tilePrefab;
     public GameObject wallPrefab;
     public GameObject pressurePlate;
+    public GameObject healPotion;
     public GameObject unbreakableWall;
     public int tileResolution;
 
@@ -62,13 +63,20 @@ public class GridHandler : MonoBehaviour
 
     public void ClearMap()
     {
-        for (int i = 0; i < map.Length; i++)
+
+        foreach(Cell c in map)
         {
-            map[i].FreeCell();
-            Destroy(map[i].entity);
-            map[i].player = null;
-            map[i].type = EntityType.None;
+            c.FreeCell();
+            Destroy(c.entity);
+            c.player = null;
+            Destroy(c.tile);
+            c.destroyable = true;
+            c.type = EntityType.None;
+
         }
+
+        InitMap();
+
     }
 
     public Cell GetCellFromPos(Vector3 pos)
@@ -106,8 +114,6 @@ public class GridHandler : MonoBehaviour
             c.occupied = true;
             return c;
         }
-
-
     }
 
     public List<Cell> GetAllCellsOfType(EntityType type, bool checkDestroyable = true)
@@ -188,6 +194,7 @@ public class GridHandler : MonoBehaviour
     {
         if(cell.occupied == false)
         {
+            Debug.Log("Walled");
             cell.entity = Instantiate(wallPrefab, cell.pos, Quaternion.identity);
             cell.type = EntityType.Wall;
             cell.occupied = true;
@@ -206,6 +213,14 @@ public class GridHandler : MonoBehaviour
     {
         cell.entity = Instantiate(pressurePlate, cell.pos, Quaternion.identity);
         cell.type = EntityType.PressurePlate;
+        cell.occupied = false;
+        cell.destroyable = false;
+    }
+
+    public void SetHealPotion(Cell cell)
+    {
+        cell.entity = Instantiate(healPotion, cell.pos, Quaternion.identity);
+        cell.type = EntityType.HealPotion;
         cell.occupied = false;
         cell.destroyable = false;
     }
@@ -338,13 +353,19 @@ public class GridHandler : MonoBehaviour
                         //players[0].transform.position = c.pos;
                         break;
                     case "H":
-                        //players[0].transform.position = c.pos;
+                        SetHealPotion(c);
                         break;
                     case "X":
                         players[0].transform.position = c.pos;
+                        c.player = players[0];
+                        c.occupied = true;
+                        CheckPlayer();
                         break;
                     case "Y":
                         players[1].transform.position = c.pos;
+                        c.player = players[1];
+                        c.occupied = true;
+                        CheckPlayer();
                         break;
                 }
             }
@@ -392,4 +413,4 @@ public class Bounds
 }
 
 public enum Direction {Up, Down, Left, Right}
-public enum EntityType {None, Bomb, Wall, PressurePlate}
+public enum EntityType {None, Bomb, Wall, PressurePlate, HealPotion}

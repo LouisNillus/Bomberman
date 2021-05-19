@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Wall : MonoBehaviour
 {
+
     private void OnDestroy()
     {
         GridHandler.instance.GetCellFromPos(this.transform.position).type = EntityType.None;
-        GridHandler.instance.GetCellFromPos(this.transform.position).FreeCell();
+        //GridHandler.instance.GetCellFromPos(this.transform.position).FreeCell();
     }
 }

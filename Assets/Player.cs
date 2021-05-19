@@ -12,6 +12,9 @@ public class Player : MonoBehaviour
     [Range(0,10)]
     public int wallsRemaining;
 
+    [Range(0, 10)]
+    public int bombRange = 2;
+
     public PlayerKeys keys;
     public GameObject bombPrefab;
     public GameObject wallPrefab;
@@ -103,15 +106,6 @@ public class Player : MonoBehaviour
                 gh.SetWall(gh.NextCell(this.transform.position, PlayerDirection));
             }
         }
-
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            foreach(Cell c in gh.GetAllEmptyCells())
-            {
-                gh.SetWall(c);
-            }
-        }
-
     }
     public void TakeDamages(int amount)
     {
