@@ -7,6 +7,10 @@ public class Bomb : MonoBehaviour
     public float explosionTimer;
     public GameObject explosion;
     public int range = 1;
+    public Color32 blinkColor;
+    public AnimationClip animationClip;
+    public Animator animator;
+    SpriteRenderer sr;
 
     public Bomb(int range)
     {
@@ -14,7 +18,9 @@ public class Bomb : MonoBehaviour
     }
 
     private void OnEnable()
-    {
+    {       
+        sr = GetComponent<SpriteRenderer>();
+        GridHandler.instance.currentBombs.Add(this);
         GridHandler.instance.GetCellFromPos(transform.position).type = EntityType.Bomb;
         StartCoroutine(Explode());
     }
@@ -22,7 +28,6 @@ public class Bomb : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -31,9 +36,30 @@ public class Bomb : MonoBehaviour
         
     }
 
+    public void StopExplosion()
+    {
+        StopAllCoroutines();
+        Destroy(this.gameObject);
+    }
+
+
     public IEnumerator Explode()
     {
-        yield return new WaitForSeconds(explosionTimer);
+        float time = 0f;
+        float duration = explosionTimer - animationClip.length;
+
+        while (time < duration)
+        {
+            sr.color = Color.Lerp(Color.white, blinkColor, time / duration);
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+
+        animator.SetTrigger("Bomb");
+
+        //sr.color = Color.white;
+        yield return new WaitForSeconds(animationClip.length);
 
         foreach (Cell c in GridHandler.instance.CrossCells(this.transform.position, range))
         {
@@ -53,16 +79,12 @@ public class Bomb : MonoBehaviour
                 }
             }
 
-            Instantiate(explosion, c.pos, Quaternion.identity);
+            if(c.type != EntityType.UnbreakableWall) Instantiate(explosion, c.pos, Quaternion.identity);
         }
 
         GridHandler.instance.GetCellFromPos(transform.position).type = EntityType.None;
         GridHandler.instance.GetCellFromPos(transform.position).FreeCell();
+        GridHandler.instance.currentBombs.Remove(this);
         Destroy(this.gameObject);
-    }
-
-    public void Boom()
-    {
-
     }
 }

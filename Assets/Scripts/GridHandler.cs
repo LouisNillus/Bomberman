@@ -13,6 +13,7 @@ public class GridHandler : MonoBehaviour
     public int lines;
 
     public Cell[] map;
+    public List<Bomb> currentBombs = new List<Bomb>();
     public GameObject tilePrefab;
     public GameObject wallPrefab;
     public GameObject pressurePlate;
@@ -66,6 +67,13 @@ public class GridHandler : MonoBehaviour
     public void ClearMap()
     {
 
+        for (int i = 0; i < currentBombs.Count; i++)
+        {
+            currentBombs[i].StopExplosion();
+        }
+
+        currentBombs.Clear();
+
         foreach(Cell c in map)
         {
             c.FreeCell();
@@ -78,6 +86,7 @@ public class GridHandler : MonoBehaviour
 
         foreach(Player p in players)
         {
+            p.StopAllCoroutines();
             p.ResetStats();
         }
 
@@ -200,7 +209,6 @@ public class GridHandler : MonoBehaviour
     {
         if(cell.occupied == false)
         {
-            Debug.Log("Walled");
             cell.entity = Instantiate(wallPrefab, cell.pos, Quaternion.identity);
             cell.type = EntityType.Wall;
             cell.occupied = true;
@@ -324,7 +332,8 @@ public class GridHandler : MonoBehaviour
             yield return null;
         }
 
-        ReadMap(false);
+        StartCoroutine(RollMap(0.15f));
+        //ReadMap(false);
     }
 
     public bool PreventTeleport(Cell from, Cell to)
@@ -344,7 +353,7 @@ public class GridHandler : MonoBehaviour
     {
         if(clear) ClearMap();
 
-        TextAsset data = mapsFiles[UnityEngine.Random.Range(0, mapsFiles.Count)];
+        TextAsset data = mapsFiles[Random.Range(0, mapsFiles.Count)];
 
         string[] _lines = data.text.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
 
@@ -389,6 +398,17 @@ public class GridHandler : MonoBehaviour
                         break;
                 }
             }
+        }
+    }
+
+    public IEnumerator RollMap(float step)
+    {
+        float time = 0f;
+        while(time < 2f)
+        {
+            ReadMap();
+            yield return new WaitForSeconds(step);
+            time += step;
         }
     }
 }
