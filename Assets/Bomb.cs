@@ -7,6 +7,7 @@ public class Bomb : MonoBehaviour
     public float explosionTimer;
     public GameObject explosion;
     public int range = 1;
+    public AnimationClip animationClip;
 
     public Bomb(int range)
     {
@@ -33,7 +34,7 @@ public class Bomb : MonoBehaviour
 
     public IEnumerator Explode()
     {
-        yield return new WaitForSeconds(explosionTimer);
+        yield return new WaitForSeconds(animationClip.length + explosionTimer);
 
         foreach (Cell c in GridHandler.instance.CrossCells(this.transform.position, range))
         {
