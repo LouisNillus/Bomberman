@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
     public PlayerKeys keys;
     public GameObject bombPrefab;
     public GameObject wallPrefab;
+    SpriteRenderer sr;
 
     public Direction playerDirection;
 
@@ -55,7 +56,7 @@ public class Player : MonoBehaviour
         initHP = HP;
         initWalls = wallsRemaining;
         initRange = bombRange;
-
+        sr = GetComponent<SpriteRenderer>();
         gh = GridHandler.instance;
         //id = int.Parse(Random.Range(0, 99).ToString() + Random.Range(0, 99).ToString());
         gh.players.Add(this);   
@@ -135,6 +136,7 @@ public class Player : MonoBehaviour
     {
         if (HP <= 0)
         {
+            StartCoroutine(BlinkDeath());
             string winner = "Player ";
             foreach(Player p in gh.players)
             {
@@ -152,6 +154,7 @@ public class Player : MonoBehaviour
 
     public void ResetStats()
     {
+        sr.enabled = true;
         HP = initHP;
         bombRange = initRange;
         wallsRemaining = initWalls;
@@ -169,6 +172,15 @@ public class Player : MonoBehaviour
         GetComponent<SpriteRenderer>().color = pickupColor;
         yield return new WaitForSeconds(duration);
         GetComponent<SpriteRenderer>().color = Color.white;
+    }
+
+    public IEnumerator BlinkDeath()
+    {
+        while(true)
+        {
+            sr.enabled = !sr.enabled;
+            yield return new WaitForSeconds(0.25f);
+        }
     }
 }
 

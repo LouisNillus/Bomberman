@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class BombItem : MonoBehaviour
 {
+    public GameObject particles;
+
     // Start is called before the first frame update
     void Start()
     {
         
     }
+
 
     // Update is called once per frame
     void Update()
@@ -23,6 +26,7 @@ public class BombItem : MonoBehaviour
                 cell.FreeCell();
                 player.StartCoroutine(player.PickupFeedback(0.5f));
                 cell.type = EntityType.None;
+                Instantiate(particles, this.transform.position, Quaternion.identity);
                 Destroy(this.gameObject);
             }
         }
