@@ -134,26 +134,6 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1066935010}
-    - target: {fileID: 912495488, guid: aec3d5b23c789274392a5a8ad025d78b, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -245
-      objectReference: {fileID: 0}
-    - target: {fileID: 1233862307, guid: aec3d5b23c789274392a5a8ad025d78b, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -145
-      objectReference: {fileID: 0}
-    - target: {fileID: 1233862308, guid: aec3d5b23c789274392a5a8ad025d78b, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1233862308, guid: aec3d5b23c789274392a5a8ad025d78b, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 1201538773}
-    - target: {fileID: 1498518909, guid: aec3d5b23c789274392a5a8ad025d78b, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1799564683, guid: aec3d5b23c789274392a5a8ad025d78b, type: 3}
       propertyPath: player
       value: 
@@ -162,58 +142,6 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1066935010}
-    - target: {fileID: 1144329730357978537, guid: aec3d5b23c789274392a5a8ad025d78b, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 17
-      objectReference: {fileID: 0}
-    - target: {fileID: 1805993836305109404, guid: aec3d5b23c789274392a5a8ad025d78b, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 201
-      objectReference: {fileID: 0}
-    - target: {fileID: 2890191351478005144, guid: aec3d5b23c789274392a5a8ad025d78b, type: 3}
-      propertyPath: m_Color.r
-      value: 0.21568628
-      objectReference: {fileID: 0}
-    - target: {fileID: 2890191351478005144, guid: aec3d5b23c789274392a5a8ad025d78b, type: 3}
-      propertyPath: m_Color.g
-      value: 0.39607844
-      objectReference: {fileID: 0}
-    - target: {fileID: 2890191351478005144, guid: aec3d5b23c789274392a5a8ad025d78b, type: 3}
-      propertyPath: m_Color.b
-      value: 0.23137255
-      objectReference: {fileID: 0}
-    - target: {fileID: 2890191351478005144, guid: aec3d5b23c789274392a5a8ad025d78b, type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2890191352261627303, guid: aec3d5b23c789274392a5a8ad025d78b, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -6
-      objectReference: {fileID: 0}
-    - target: {fileID: 2890191352505322030, guid: aec3d5b23c789274392a5a8ad025d78b, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -206
-      objectReference: {fileID: 0}
-    - target: {fileID: 2890191352506128071, guid: aec3d5b23c789274392a5a8ad025d78b, type: 3}
-      propertyPath: m_Color.r
-      value: 0.3647059
-      objectReference: {fileID: 0}
-    - target: {fileID: 2890191352506128071, guid: aec3d5b23c789274392a5a8ad025d78b, type: 3}
-      propertyPath: m_Color.g
-      value: 0.25882354
-      objectReference: {fileID: 0}
-    - target: {fileID: 2890191352506128071, guid: aec3d5b23c789274392a5a8ad025d78b, type: 3}
-      propertyPath: m_Color.b
-      value: 0.5019608
-      objectReference: {fileID: 0}
-    - target: {fileID: 2890191352506128071, guid: aec3d5b23c789274392a5a8ad025d78b, type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2890191352832092459, guid: aec3d5b23c789274392a5a8ad025d78b, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2890191352930069792, guid: aec3d5b23c789274392a5a8ad025d78b, type: 3}
       propertyPath: m_Name
       value: CanvasGame
@@ -306,14 +234,6 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1066935010}
-    - target: {fileID: 6567129194636424906, guid: aec3d5b23c789274392a5a8ad025d78b, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -106
-      objectReference: {fileID: 0}
-    - target: {fileID: 6730146347202710005, guid: aec3d5b23c789274392a5a8ad025d78b, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 211
-      objectReference: {fileID: 0}
     - target: {fileID: 7653474293008866893, guid: aec3d5b23c789274392a5a8ad025d78b, type: 3}
       propertyPath: player
       value: 
@@ -322,10 +242,6 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1746547115}
-    - target: {fileID: 9194136998684070589, guid: aec3d5b23c789274392a5a8ad025d78b, type: 3}
-      propertyPath: m_HorizontalAlignment
-      value: 2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aec3d5b23c789274392a5a8ad025d78b, type: 3}
 --- !u!1 &519420028
@@ -582,6 +498,10 @@ MonoBehaviour:
   - {fileID: 4900000, guid: e4b7e716ec407ed4186836f3833d70d2, type: 3}
   - {fileID: 4900000, guid: 20560c173e9d3324995caafda458e229, type: 3}
   - {fileID: 4900000, guid: e8bed5e4a3a663340a1bc59f3e28816b, type: 3}
+  - {fileID: 4900000, guid: ca8cc0377208570489b7a26ec9fb55a4, type: 3}
+  - {fileID: 4900000, guid: 4f7eaa657675e0f459fe7773e6977562, type: 3}
+  - {fileID: 4900000, guid: fa6b20f8cc5d1ba4992e2e1439610c1d, type: 3}
+  - {fileID: 4900000, guid: 3ab13e731bdac724b852ba05a6599369, type: 3}
 --- !u!1 &1293234814
 GameObject:
   m_ObjectHideFlags: 0
